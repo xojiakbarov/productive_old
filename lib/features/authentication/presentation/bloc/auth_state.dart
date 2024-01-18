@@ -1,7 +1,7 @@
 part of 'auth_bloc.dart';
 
 @immutable
-class AuthState {
+class AuthState extends Equatable{
   final AuthenticatedUserEntity authenticatedUser;
   final AuthenticationStatus status;
 

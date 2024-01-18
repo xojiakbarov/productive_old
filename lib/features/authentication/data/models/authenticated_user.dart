@@ -3,8 +3,6 @@ import 'package:productive/features/authentication/domain/entity/authenticated_u
 import 'package:productive/features/authentication/presentation/widgets/authenticated_user.dart';
 
 class AuthenticatedUserModel extends AuthenticatedUserEntity {
-
-
   AuthenticatedUserModel({required super.email});
 
   factory AuthenticatedUserModel.fromFirebaseUser(User user) {

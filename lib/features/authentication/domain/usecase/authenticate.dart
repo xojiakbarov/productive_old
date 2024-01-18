@@ -13,12 +13,13 @@ class AuthenticateUseCase
       : _repository = repository;
 
   @override
-  Future<Either<Failure, AuthenticatedUserEntity>> call(
-      Params params) async {
+  Future<Either<Failure, AuthenticatedUserEntity>> call(Params params) async {
     if (params is GetStatusParams) {
       return _repository.getUser();
     } else if (params is LoginParams) {
       return _repository.login(params.email, params.password);
+    } else if (params is SignUpParams) {
+      return _repository.signUp(params.email, params.password);
     } else {
       throw UnimplementedError();
     }
@@ -36,4 +37,14 @@ class LoginParams extends Params {
   final String password;
 
   LoginParams({required this.email, required this.password});
+
+}
+
+
+class SignUpParams extends Params {
+  final String email;
+  final String password;
+
+  SignUpParams({required this.email, required this.password});
+
 }

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:productive/core/either/either.dart';
 import 'package:productive/core/exception/exception.dart';
 import 'package:productive/core/failure/failure.dart';
@@ -44,4 +45,16 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
       return Left(ServerFailure(message: error.errorMassege, code: error.errorCode));
     }
   }
+
+  @override
+  Future<Either<Failure, AuthenticatedUserEntity>> signUp(
+      String email, String password) async {
+    try {
+      final user = await _dataSource.signUp(email, password);
+      return Right(AuthenticatedUserModel.fromFirebaseUser(user));
+    } on ServerException catch (error) {
+      return Left(ServerFailure(message: error.errorMassege, code: error.errorCode));
+    }
+  }
+
 }

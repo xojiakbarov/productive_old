@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 import 'package:productive/features/authentication/data/data_source/remote.dart';
@@ -41,7 +42,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       });
     });
 
-
     on<AuthenticationLogoutRequestedEvent>((event, emit) async {
       final usecase = LogoutUseCase(
         repository: AuthenticationRepositoryImpl(
@@ -52,13 +52,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final either = await usecase.call(NoParams());
 
       either.either(
-            (failure) {},
-            (user) {
+        (failure) {},
+        (user) {
           emit(state.copyWith(status: AuthenticationStatus.unauthenticated));
         },
       );
     });
-
 
     on<AuthenticationLoginRequestedEvent>((event, emit) async {
       final usecase = AuthenticateUseCase(
@@ -73,13 +72,40 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       ));
 
       either.either(
-            (failure) {
+        (failure) {
           emit(state.copyWith(status: AuthenticationStatus.unauthenticated));
           event.onFailure((failure as ServerFailure).message);
         },
-            (user) {
+        (user) {
           emit(state.copyWith(
             status: AuthenticationStatus.authenticated,
+            authenticatedUserEntity: user,
+          ));
+          event.onSuccess();
+        },
+      );
+    });
+
+    on<AuthenticationSignUpEvent>((event, emit) async {
+      final usecase = AuthenticateUseCase(
+        AuthenticationRepositoryImpl(
+          dataSource: AuthenticationRemoteDataSource(),
+        ),
+      );
+
+      final either = await usecase.call(SignUpParams(
+        email: event.email,
+        password: event.password,
+      ));
+
+      either.either(
+        (failure) {
+          emit(state.copyWith(status: AuthenticationStatus.authenticated));
+          event.onFailure((failure as ServerFailure).message);
+        },
+        (user) {
+          emit(state.copyWith(
+            status: AuthenticationStatus.unauthenticated,
             authenticatedUserEntity: user,
           ));
           event.onSuccess();

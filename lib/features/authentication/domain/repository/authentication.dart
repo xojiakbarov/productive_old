@@ -10,5 +10,5 @@ abstract class AuthenticationRepository {
 
   Future<Either<Failure, void>>logout();
 
-  Future<Either<Failure, void>> signUp();
+  Future<Either<Failure,AuthenticatedUserEntity >> signUp(String email, String password);
 }

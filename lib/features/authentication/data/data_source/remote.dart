@@ -8,6 +8,8 @@ abstract class AuthenticationRemoteDataSource {
 
   Future<void> logout();
 
+  Future<User> signUp(String email, String password);
+
   factory AuthenticationRemoteDataSource() =>
       _AuthenticationRemoteDataSourceImpl();
 }
@@ -55,6 +57,24 @@ class _AuthenticationRemoteDataSourceImpl
     } catch (e) {
       throw ServerException(
         errorMassege: "Cannot logout the user",
+        errorCode: 500,
+      );
+    }
+  }
+
+  @override
+  Future<User> signUp(String email, String password) async {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return FirebaseAuth.instance.currentUser!;
+    } on ServerException {
+      rethrow;
+    } catch (error) {
+      throw ServerException(
+        errorMassege: "$error",
         errorCode: 500,
       );
     }
