@@ -7,7 +7,7 @@ sealed class TaskEvent {}
 class LoadingTask extends TaskEvent {}
 
 class CheckedTask extends TaskEvent {
-  final int index;
+  final String index;
   CheckedTask({
     required this.index,
   });
@@ -105,7 +105,7 @@ class SelectPriorityColor extends TaskEvent {
 }
 
 class CreateNewTaskButtonPressed extends TaskEvent {
-  
+
   final String title;
   final String icon;
   final Priority priority;
@@ -159,23 +159,23 @@ class CreateNewTaskButtonPressed extends TaskEvent {
   @override
   bool operator ==(covariant CreateNewTaskButtonPressed other) {
     if (identical(this, other)) return true;
-  
-    return 
+
+    return
       other.title == title &&
-      other.icon == icon &&
-      other.priority == priority &&
-      other.note == note &&
-      other.startDate == startDate &&
-      other.dueDate == dueDate &&
-      other.isChecked == isChecked &&
-      other.iconColor == iconColor &&
-      other.onSuccess == onSuccess &&
-      other.onFailure == onFailure;
+          other.icon == icon &&
+          other.priority == priority &&
+          other.note == note &&
+          other.startDate == startDate &&
+          other.dueDate == dueDate &&
+          other.isChecked == isChecked &&
+          other.iconColor == iconColor &&
+          other.onSuccess == onSuccess &&
+          other.onFailure == onFailure;
   }
 
   @override
   int get hashCode {
-    return 
+    return
       title.hashCode ^
       icon.hashCode ^
       priority.hashCode ^
@@ -198,5 +198,5 @@ class Searching extends TaskEvent {
   Searching({
     required this.query,
   });
-  
- }
+
+}

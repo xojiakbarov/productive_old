@@ -1,17 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
-import 'package:productive/features/tasks/data/models/priority.dart';
-
 class TaskModel {
-  final int id;
+  final String id;
   final String title;
   final String icon;
-  final Priority priority;
+  final String priority;
   final String? note;
-  final DateTime startDate;
-  final DateTime dueDate;
+  final Timestamp startDate;
+  final Timestamp dueDate;
   final bool isChecked;
-  final Color iconColor;
   TaskModel({
     required this.id,
     required this.title,
@@ -21,27 +19,25 @@ class TaskModel {
     required this.startDate,
     required this.dueDate,
     required this.isChecked,
-    required this.iconColor,
   });
 
-  factory TaskModel.fromJson(Map<String, dynamic> json) {
-    
+  factory TaskModel.fromJson(Map<String, dynamic> json, String id) {
+
     return TaskModel(
-      id: json['id'],
+      id: id,
       title: json['title'],
       icon: json['icon'],
       note: json['note'],
       priority: json['priority'],
-      startDate: json['start_date'],
+      startDate: json['created_at'],
       dueDate: json['due_date'],
-      isChecked: json['is_checked'],
-      iconColor: json['icon_color'],
+      isChecked: json['is_finished'],
     );
   }
 
   @override
   String toString() {
-    return 'TaskModel(id: $id, title: $title, icon: $icon, priority: $priority, note: $note, startDate: $startDate, dueDate: $dueDate, isChecked: $isChecked, iconColor: $iconColor)';
+    return 'TaskModel(id: $id, title: $title, icon: $icon, priority: $priority, note: $note, startDate: $startDate, dueDate: $dueDate, isChecked: $isChecked)';
   }
 
   @override
@@ -55,44 +51,41 @@ class TaskModel {
         other.note == note &&
         other.startDate == startDate &&
         other.dueDate == dueDate &&
-        other.isChecked == isChecked &&
-        other.iconColor == iconColor;
+        other.isChecked == isChecked;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-        title.hashCode ^
-        icon.hashCode ^
-        priority.hashCode ^
-        note.hashCode ^
-        startDate.hashCode ^
-        dueDate.hashCode ^
-        isChecked.hashCode ^
-        iconColor.hashCode;
+    title.hashCode ^
+    icon.hashCode ^
+    priority.hashCode ^
+    note.hashCode ^
+    startDate.hashCode ^
+    dueDate.hashCode ^
+    isChecked.hashCode ;
   }
 
   TaskModel copyWith({
-    int? id,
+    String? id,
     String? title,
     String? icon,
-    Priority? priority,
+    String? priority,
     String? note,
-    DateTime? startDate,
-    DateTime? dueDate,
+    Timestamp? startDate,
+    Timestamp? dueDate,
     bool? isChecked,
     Color? iconColor,
   }) {
     return TaskModel(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      icon: icon ?? this.icon,
-      priority: priority ?? this.priority,
-      note: note ?? this.note,
-      startDate: startDate ?? this.startDate,
-      dueDate: dueDate ?? this.dueDate,
-      isChecked: isChecked ?? this.isChecked,
-      iconColor: iconColor ?? this.iconColor,
+        id: id ?? this.id,
+        title: title ?? this.title,
+        icon: icon ?? this.icon,
+        priority: priority ?? this.priority,
+        note: note ?? this.note,
+        startDate: startDate ?? this.startDate,
+        dueDate: dueDate ?? this.dueDate,
+        isChecked: isChecked ?? this.isChecked
     );
   }
 }

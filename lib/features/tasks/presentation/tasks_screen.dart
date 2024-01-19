@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -117,10 +118,14 @@ class _TaskScreenState extends State<TaskScreen>
               labelColor: white,
               unselectedLabelColor: Colors.grey,
               tabs: const [
-                Tab(child: Text("Upcoming",
-                    style: TextStyle(fontSize: 18,fontWeight: FontWeight.w700))),
-                Tab(child: Text("All",
-                    style: TextStyle(fontSize: 18,fontWeight: FontWeight.w700))),
+                Tab(
+                    child: Text("Upcoming",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w700))),
+                Tab(
+                    child: Text("All",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w700))),
               ]),
         ),
         body: BlocBuilder<TaskBloc, TaskState>(
@@ -183,6 +188,7 @@ class _TaskScreenState extends State<TaskScreen>
 
 class TaskItem extends StatelessWidget {
   final TaskModel task;
+
   const TaskItem({
     super.key,
     required this.task,
@@ -216,9 +222,10 @@ class TaskItem extends StatelessWidget {
                   height: 38,
                   padding: const EdgeInsets.all(7),
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: task.iconColor),
-                  child: SvgPicture.asset(task.icon),
+                    borderRadius: BorderRadius.circular(10),
+                    // color: task.iconColor,
+                  ),
+                  child: SvgPicture.network(task.icon),
                 ),
                 const Gap(10),
                 Column(
@@ -276,19 +283,19 @@ class TaskItem extends StatelessWidget {
   }
 }
 
-Color getPriorityColor(Priority priority) {
+Color getPriorityColor(String priority) {
   switch (priority) {
-    case Priority.high:
+    case 'high':
       return redPriorty;
-    case Priority.medium:
+    case 'medium':
       return yellowPriority;
-
     default:
       return greenPriority;
   }
 }
 
-String getProperTime(DateTime date) {
+String getProperTime(Timestamp value) {
+  final date = value.toDate();
   if (date.hour > -12) {
     final soat = date.hour >= 12 ? date.hour - 12 : date.hour;
     final hour = soat < 10 ? '0$soat' : '$soat';

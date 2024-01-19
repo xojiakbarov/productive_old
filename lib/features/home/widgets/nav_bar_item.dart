@@ -18,45 +18,45 @@ class TabItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        behavior: HitTestBehavior.deferToChild,
-        onTap: onActiveTap,
-        // isActive
-        //     ? () {
-        //         if (isActive && onActiveTap != null) {
-        //           onActiveTap!();
-        //         }
-        //       }
-        //     : null,
-        child: Container(
-          padding: EdgeInsets.fromLTRB(0, item.id == 2 ? 0 : 8, 0, 0),
-          width: double.maxFinite,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              if (item.id != 2)
-                SvgPicture.asset(
-                  item.icon,
-                  color: isActive ? activeColor : inactiveColor,
-                ),
-              if (item.id == 2)
-                SvgPicture.asset(
-                  item.icon,
-                 
-                  color: isActive ? activeColor : inactiveColor,
-                ),
-              // const SizedBox(height: 4),
-              Text(
-                item.title,
-                style: TextStyle(
-                  color: isActive ? activeColor : inactiveColor,
-                ),
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.center,
-                maxLines: 1,
-              ),
-            ],
+    behavior: HitTestBehavior.deferToChild,
+    onTap: onActiveTap,
+    // isActive
+    //     ? () {
+    //         if (isActive && onActiveTap != null) {
+    //           onActiveTap!();
+    //         }
+    //       }
+    //     : null,
+    child: Container(
+      padding: EdgeInsets.fromLTRB(0, item.id == 2 ? 0 : 8, 0, 0),
+      width: double.maxFinite,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          if (item.id != 2)
+            SvgPicture.asset(
+              item.icon,
+              color: isActive ? activeColor : inactiveColor,
+            ),
+          if (item.id == 2)
+            SvgPicture.asset(
+              item.icon,
+
+              color: isActive ? activeColor : inactiveColor,
+            ),
+          // const SizedBox(height: 4),
+          Text(
+            item.title,
+            style: TextStyle(
+              color: isActive ? activeColor : inactiveColor,
+            ),
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+            maxLines: 1,
           ),
-        ),
-      );
+        ],
+      ),
+    ),
+  );
 }

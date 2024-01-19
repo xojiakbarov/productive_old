@@ -47,9 +47,9 @@ class _CreateScreenState extends State<CreateScreen> {
                 height: 24,
                 alignment: Alignment.center,
                 child: GestureDetector(
-                  onTap: (){
-                    Navigator.of(context).pop();
-                    Navigator.of(context).pop();
+                    onTap: (){
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();
                     },
                     child: SvgPicture.asset(AppIcons.backPage)),
               ),
@@ -98,8 +98,8 @@ class _CreateScreenState extends State<CreateScreen> {
                                   .textTheme
                                   .bodyMedium!
                                   .copyWith(
-                                      color: greyish,
-                                      fontWeight: FontWeight.w500),
+                                  color: greyish,
+                                  fontWeight: FontWeight.w500),
                             ),
                           ),
                         ),
@@ -115,15 +115,15 @@ class _CreateScreenState extends State<CreateScreen> {
                           final time = await selectTime(context);
                           if (time != null ) {
                             dateStartTime = time.copyWith(
-                              hour: time.hour,
-                              minute: time.minute
+                                hour: time.hour,
+                                minute: time.minute
                             );
                             print("start time  --- $dateStartTime");
 
                           }
                           context.read<TaskBloc>().add(
-                                      CreateStartDataTime(time: dateStartTime!),
-                                    );
+                            CreateStartDataTime(time: dateStartTime!),
+                          );
                         },
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,9 +134,9 @@ class _CreateScreenState extends State<CreateScreen> {
                                   .textTheme
                                   .displaySmall!
                                   .copyWith(
-                                    color: activeColor,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                                color: activeColor,
+                                fontWeight: FontWeight.w400,
+                              ),
                             ),
                             const Gap(7),
                             Text(
@@ -177,9 +177,9 @@ class _CreateScreenState extends State<CreateScreen> {
                                   .textTheme
                                   .displaySmall!
                                   .copyWith(
-                                    color: activeColor,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                                color: activeColor,
+                                fontWeight: FontWeight.w400,
+                              ),
                             ),
                             const Gap(7),
                             Text(
@@ -209,13 +209,13 @@ class _CreateScreenState extends State<CreateScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: List.generate(
                         3,
-                        (index) {
+                            (index) {
                           return GestureDetector(
                             onTap: () {
                               priorityIndex = index;
                               context.read<TaskBloc>().add(
-                                    SelectPriorityColor(index: index),
-                                  );
+                                SelectPriorityColor(index: index),
+                              );
                             },
                             child: Container(
                               width: 75,
@@ -223,12 +223,12 @@ class _CreateScreenState extends State<CreateScreen> {
                                 horizontal: 14,
                                 vertical: 7,
                               ),
-                              
+
                               decoration: BoxDecoration(
-                                
+
                                 borderRadius: BorderRadius.circular(12),
                                 color: getColorPrioriyt(index) ==
-                                        state.priorityColor
+                                    state.priorityColor
                                     ? state.priorityColor
                                     : null,
                                 border: Border.all(
@@ -260,7 +260,7 @@ class _CreateScreenState extends State<CreateScreen> {
                       border: InputBorder.none,
                     ),
                   ),
-                  GestureDetector( 
+                  GestureDetector(
                     onTap: () {
                       addLocation(context);
                     },
@@ -274,10 +274,10 @@ class _CreateScreenState extends State<CreateScreen> {
                         Text(
                           "Add locataion",
                           style:
-                              Theme.of(context).textTheme.labelMedium!.copyWith(
-                                    color: allPageTextColor,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                          Theme.of(context).textTheme.labelMedium!.copyWith(
+                            color: allPageTextColor,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ],
                     ),
@@ -293,10 +293,10 @@ class _CreateScreenState extends State<CreateScreen> {
                       Text(
                         "Add notification",
                         style:
-                            Theme.of(context).textTheme.labelMedium!.copyWith(
-                                  color: allPageTextColor,
-                                  fontWeight: FontWeight.w400,
-                                ),
+                        Theme.of(context).textTheme.labelMedium!.copyWith(
+                          color: allPageTextColor,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ],
                   ),
@@ -370,37 +370,37 @@ class _CreateScreenState extends State<CreateScreen> {
                   }
 
                   context.read<TaskBloc>().add(
-                        CreateNewTaskButtonPressed(
-                          note: noteController.text,
-                          title: controllerTile.text,
-                          icon: state.selectIcon,
-                          priority: getPrioriyt(priorityIndex!),
-                          startDate: dateStartTime!,
-                          dueDate: dataEndTime!,
-                          isChecked: false,
-                          iconColor: state.selectIconcolor,
-                          onSuccess: () {
-                            Navigator.of(context).pop();
-                            Navigator.of(context).pop();
-                          },
-                          onFailure: (errorMassage) {
-                            ScaffoldMessenger.of(context).showMaterialBanner(
-                              MaterialBanner(
-                                onVisible: () async {
-                                  await Future.delayed(
-                                      const Duration(seconds: 3));
-                                  ScaffoldMessenger.of(context)
-                                      .hideCurrentMaterialBanner();
-                                },
-                                content: Text(errorMassage),
-                                actions: const [
-                                  SizedBox(),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      );
+                    CreateNewTaskButtonPressed(
+                      note: noteController.text,
+                      title: controllerTile.text,
+                      icon: state.selectIcon,
+                      priority: getPrioriyt(priorityIndex!),
+                      startDate: dateStartTime!,
+                      dueDate: dataEndTime!,
+                      isChecked: false,
+                      iconColor: state.selectIconcolor,
+                      onSuccess: () {
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+                      },
+                      onFailure: (errorMassage) {
+                        ScaffoldMessenger.of(context).showMaterialBanner(
+                          MaterialBanner(
+                            onVisible: () async {
+                              await Future.delayed(
+                                  const Duration(seconds: 3));
+                              ScaffoldMessenger.of(context)
+                                  .hideCurrentMaterialBanner();
+                            },
+                            content: Text(errorMassage),
+                            actions: const [
+                              SizedBox(),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  );
                 },
                 child: Text(
                   "Save",

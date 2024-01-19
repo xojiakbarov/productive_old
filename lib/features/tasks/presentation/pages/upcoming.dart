@@ -96,44 +96,36 @@ class UpcomingPage extends StatelessWidget {
                   const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Meet the cdevs team",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: white
+                      Text(
+                        "Meet the cdevs team",
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: white),
                       ),
-                      ),
-                      Text("05:00 PM - 05:30 PM",
-                      style: TextStyle(
-                        color: upcomingTextColor,
-                        fontSize: 14,
-
-                      ),
+                      Text(
+                        "05:00 PM - 05:30 PM",
+                        style: TextStyle(
+                          color: upcomingTextColor,
+                          fontSize: 14,
+                        ),
                       ),
                     ],
-
                   ),
                   const Spacer(),
                   Container(
-                    width: 17, 
-                    height: 18 ,
+                    width: 17,
+                    height: 18,
                     decoration: BoxDecoration(
-                      border: Border.all(
-                        color: activeColor,
-                        width: 2
-                      ),
-                      borderRadius: BorderRadius.circular(6)
-                    ),
-
+                        border: Border.all(color: activeColor, width: 2),
+                        borderRadius: BorderRadius.circular(6)),
                   )
                 ],
               ),
               const Gap(8),
-              const Text("We will discuss the new Tasks of the calendar pages",
-              style: TextStyle(
-                fontSize: 14,
-                color: white
-              ),
+              const Text(
+                "We will discuss the new Tasks of the calendar pages",
+                style: TextStyle(fontSize: 14, color: white),
               ),
               const Gap(8),
               Container(
@@ -142,39 +134,33 @@ class UpcomingPage extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 8),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
-                  
                 ),
                 child: Row(
                   children: [
                     Container(
-                      height: 24, 
-                      width: 24, 
+                      height: 24,
+                      width: 24,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4),
-                        color: upcomingLinkBolt
-                      ),
+                          borderRadius: BorderRadius.circular(4),
+                          color: upcomingLinkBolt),
                       child: SvgPicture.asset(AppIcons.link),
                     ),
                     Container(
-                      height: 24, 
+                      height: 24,
                       width: 89,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4),
                         color: upComingLink,
-
                       ),
                       alignment: Alignment.center,
-                      child:const Text("Link to meeting",
-                      style: TextStyle(
-                        color: white,
-                        fontSize: 12
-                      ),
+                      child: const Text(
+                        "Link to meeting",
+                        style: TextStyle(color: white, fontSize: 12),
                       ),
                     )
                   ],
                 ),
               ),
-
             ],
           ),
         ),

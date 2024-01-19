@@ -34,7 +34,7 @@ class TaskState {
     this.priorityColor,
     required this.isSearching,
   });
-  
+
 
   TaskState copyWith({
     LoadingStatus? status,
@@ -70,33 +70,32 @@ class TaskState {
   @override
   bool operator ==(covariant TaskState other) {
     if (identical(this, other)) return true;
-  
-    return 
+
+    return
       other.status == status &&
-      listEquals(other.tasklist, tasklist) &&
-      listEquals(other.upcomingList, upcomingList) &&
-      listEquals(other.searchedTask, searchedTask) &&
-      other.startDate == startDate &&
-      other.endDate == endDate &&
-      other.selectIconcolor == selectIconcolor &&
-      other.selectIcon == selectIcon &&
-      other.priorityColor == priorityColor &&
-      other.isSearching == isSearching;
+          listEquals(other.tasklist, tasklist) &&
+          listEquals(other.upcomingList, upcomingList) &&
+          listEquals(other.searchedTask, searchedTask) &&
+          other.startDate == startDate &&
+          other.endDate == endDate &&
+          other.selectIconcolor == selectIconcolor &&
+          other.selectIcon == selectIcon &&
+          other.priorityColor == priorityColor &&
+          other.isSearching == isSearching;
   }
 
   @override
   int get hashCode {
     return status.hashCode ^
-      tasklist.hashCode ^
-      upcomingList.hashCode ^
-      searchedTask.hashCode ^
-      startDate.hashCode ^
-      endDate.hashCode ^
-      selectIconcolor.hashCode ^
-      selectIcon.hashCode ^
-      priorityColor.hashCode ^
-      isSearching.hashCode;
+    tasklist.hashCode ^
+    upcomingList.hashCode ^
+    searchedTask.hashCode ^
+    startDate.hashCode ^
+    endDate.hashCode ^
+    selectIconcolor.hashCode ^
+    selectIcon.hashCode ^
+    priorityColor.hashCode ^
+    isSearching.hashCode;
   }
 }
-
 

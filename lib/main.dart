@@ -2,8 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:productive/assets/constants/routes.dart';
+import 'package:productive/core/injector/injector.dart';
 import 'package:productive/features/notes/notes/data/repository/notes.dart';
 import 'package:productive/features/notes/notes/presentation/bloc/notes/notes_bloc.dart';
+import 'package:productive/features/tasks/data/data_source/remote.dart';
 import 'package:productive/features/tasks/data/repository/task.dart';
 import 'package:productive/features/tasks/presentation/bloc/task_bloc.dart';
 import 'package:productive/firebase_options.dart';
@@ -13,6 +15,8 @@ import 'features/authentication/presentation/bloc/auth_bloc.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await setupLocator();
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -39,7 +43,12 @@ class _AppState extends State<App> {
         create: (_) => AuthBloc(),
       ),
       BlocProvider(
-          create: (context) => TaskBloc(response: TaskRepository())),
+        create: (context) => TaskBloc(
+          response: TaskRepository(
+            taskRemoteDataSource: TaskRemoteDataSource(),
+          ),
+        ),
+      ),
       BlocProvider(
         create: (context) => NoteBloc(
           repository: NoteRepository(),

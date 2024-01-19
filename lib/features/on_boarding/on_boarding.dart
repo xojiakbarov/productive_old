@@ -4,7 +4,9 @@ import 'package:gap/gap.dart';
 import 'package:productive/assets/constants/colors.dart';
 import 'package:productive/assets/constants/icons.dart';
 import 'package:productive/assets/constants/images.dart';
+import 'package:productive/core/injector/injector.dart';
 import 'package:productive/features/authentication/presentation/login_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OnBoarding extends StatefulWidget {
   const OnBoarding({super.key});
@@ -46,7 +48,9 @@ class _OnBoardingState extends State<OnBoarding> {
                           top: MediaQuery.of(context).padding.top + 24,
                           right: 24),
                       child: GestureDetector(
-                        onTap: () {
+                        onTap: () async {
+                          await serviceLocator<SharedPreferences>()
+                              .setBool('wizard', true);
                           Navigator.of(context).pushNamed("/login");
                         },
                         child: const Text(
@@ -178,7 +182,7 @@ class _OnBoardingState extends State<OnBoarding> {
               margin: EdgeInsets.only(
                   bottom: MediaQuery.of(context).padding.bottom + 30, right: 4),
               decoration: BoxDecoration(
-                color:thisPage==0? onBordingComponet:onBoarding,
+                color: thisPage == 0 ? onBordingComponet : onBoarding,
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
@@ -190,18 +194,21 @@ class _OnBoardingState extends State<OnBoarding> {
                 bottom: MediaQuery.of(context).padding.bottom + 30,
               ),
               decoration: BoxDecoration(
-                color: thisPage==1? onBordingComponet:onBoarding,
+                color: thisPage == 1 ? onBordingComponet : onBoarding,
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
             const Spacer(),
             GestureDetector(
-              onTap: () {
+              onTap: () async {
                 if (thisPage == 0) {
                   controller.nextPage(
                       duration: const Duration(milliseconds: 300),
                       curve: Curves.ease);
                 } else {
+                  await serviceLocator<SharedPreferences>()
+                      .setBool('wizard', true);
+
                   Navigator.of(context).pushNamed("/login");
                 }
               },

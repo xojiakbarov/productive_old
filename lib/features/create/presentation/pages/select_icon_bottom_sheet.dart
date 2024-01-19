@@ -27,11 +27,11 @@ Future<dynamic> SelectIcon(BuildContext context) {
                           margin: const EdgeInsets.only(bottom: 16),
                           height: 24,
                           width: 24,
-                          child: GestureDetector( 
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            child: SvgPicture.asset(AppIcons.selectIconBack)),
+                          child: GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: SvgPicture.asset(AppIcons.selectIconBack)),
                         ),
                       ),
                     ],
@@ -68,7 +68,7 @@ Future<dynamic> SelectIcon(BuildContext context) {
                       context.read<TaskBloc>().add(SelectIconButtonPressed(index: index),);
                     },
                     child: ListTile(
-                      
+
                       leading: Container(
                         height: 40,
                         width: 40,

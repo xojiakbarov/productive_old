@@ -5,8 +5,8 @@ import 'package:productive/core/widgets/modal_widgets.dart';
 import 'package:productive/core/widgets/w_button.dart';
 
 Future<DateTime?> selectTime(BuildContext context) async {
-DateTime callingDate = DateTime.now();
-   await showCupertinoModalPopup(
+  DateTime callingDate = DateTime.now();
+  await showCupertinoModalPopup(
     barrierDismissible: false,
     context: context,
     builder: (BuildContext builderContext) {
@@ -20,12 +20,12 @@ DateTime callingDate = DateTime.now();
           children: [
             const ExitBar(),
             const Gap(65),
-                 Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                  Text(
+                Text(
                   '${callingDate.day} / ${callingDate.month} / ${callingDate.year}',
-                    style: const TextStyle(
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
                     color: Colors.white,

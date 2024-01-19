@@ -20,19 +20,21 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   TaskBloc({required TaskRepository response})
       : _response = response,
         super(TaskState(
-            searchedTask: [],
-            isSearching: false,
-            selectIcon: AppIcons.titleIcon,
-            selectIconcolor: activeColor,
-            status: LoadingStatus.pure,
-            tasklist: [],
-            upcomingList: [],
-            startDate: DateTime(2000, 1, 1, 10),
-            endDate: DateTime(2000, 1, 1, 10))) {
+          searchedTask: [],
+          isSearching: false,
+          selectIcon: AppIcons.titleIcon,
+          selectIconcolor: activeColor,
+          status: LoadingStatus.pure,
+          tasklist: [],
+          upcomingList: [],
+          startDate: DateTime(2000, 1, 1, 10),
+          endDate: DateTime(2000, 1, 1, 10))) {
     on<LoadingTask>((event, emit) async {
       emit(state.copyWith(status: LoadingStatus.loading));
       try {
         List<TaskModel> ls = await _response.getTasks();
+        print(ls);
+
 
         emit(
           state.copyWith(
@@ -42,10 +44,12 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
           ),
         );
       } catch (e) {
+        print('Error occured: $e');
         addError(e);
         emit(state.copyWith(status: LoadingStatus.loadedWithFailure));
       }
     });
+
     on<CheckedTask>((event, emit) {
       var newList = <TaskModel>[];
       for (var i = 0; i < state.tasklist.length; i++) {
@@ -108,43 +112,43 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
       }
     });
     on<CreateNewTaskButtonPressed>((event, emit) async {
-      emit(state.copyWith(status: LoadingStatus.loading));
-      final newTask = await _response.createTask(
-        icon: event.icon,
-        title: event.title,
-        startDate: event.startDate,
-        dueDate: event.dueDate,
-        note: event.note,
-        priority: event.priority,
-        iconColor: event.iconColor,
-      );
-      final updateLIst = [...state.tasklist, newTask];
-      event.onSuccess();
-      emit(
-        state.copyWith(
-          priorityColor: Colors.transparent,
-          selectIcon: AppIcons.titleIcon,
-          selectIconcolor: activeColor,
-          startDate: DateTime(2000, 1, 1, 10),
-          endDate: DateTime(2000, 1, 1, 10),
-        ),
-      );
-
-      try {
-        emit(
-          state.copyWith(
-            status: LoadingStatus.loadedWithSuccess,
-            tasklist: updateLIst,
-            upcomingList:
-                updateLIst.where((element) => !element.isChecked).toList(),
-          ),
-        );
-      } catch (e) {
-        emit(state.copyWith(
-          status: LoadingStatus.loadedWithFailure,
-        ));
-        event.onFailure('$e');
-      }
+      // emit(state.copyWith(status: LoadingStatus.loading));
+      // final newTask = await _response.createTask(
+      //   icon: event.icon,
+      //   title: event.title,
+      //   startDate: event.startDate,
+      //   dueDate: event.dueDate,
+      //   note: event.note,
+      //   priority: event.priority,
+      //   iconColor: event.iconColor,
+      // );
+      // final updateLIst = [...state.tasklist, newTask];
+      // event.onSuccess();
+      // emit(
+      //   state.copyWith(
+      //     priorityColor: Colors.transparent,
+      //     selectIcon: AppIcons.titleIcon,
+      //     selectIconcolor: activeColor,
+      //     startDate: DateTime(2000, 1, 1, 10),
+      //     endDate: DateTime(2000, 1, 1, 10),
+      //   ),
+      // );
+      //
+      // try {
+      //   emit(
+      //     state.copyWith(
+      //       status: LoadingStatus.loadedWithSuccess,
+      //       tasklist: updateLIst,
+      //       upcomingList:
+      //           updateLIst.where((element) => !element.isChecked).toList(),
+      //     ),
+      //   );
+      // } catch (e) {
+      //   emit(state.copyWith(
+      //     status: LoadingStatus.loadedWithFailure,
+      //   ));
+      //   event.onFailure('$e');
+      // }
     });
     on<Searching>((event, emit) {
       if (event.query.isEmpty) {
