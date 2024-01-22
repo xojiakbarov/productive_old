@@ -1,6 +1,7 @@
 import 'dart:core';
 
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
@@ -13,10 +14,12 @@ import 'package:flutter/foundation.dart';
 import 'package:productive/features/tasks/data/repository/task.dart';
 
 part 'task_event.dart';
+
 part 'task_state.dart';
 
 class TaskBloc extends Bloc<TaskEvent, TaskState> {
   final TaskRepository _response;
+
   TaskBloc({required TaskRepository response})
       : _response = response,
         super(TaskState(
@@ -112,43 +115,18 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
       }
     });
     on<CreateNewTaskButtonPressed>((event, emit) async {
-      // emit(state.copyWith(status: LoadingStatus.loading));
-      // final newTask = await _response.createTask(
-      //   icon: event.icon,
-      //   title: event.title,
-      //   startDate: event.startDate,
-      //   dueDate: event.dueDate,
-      //   note: event.note,
-      //   priority: event.priority,
-      //   iconColor: event.iconColor,
-      // );
-      // final updateLIst = [...state.tasklist, newTask];
-      // event.onSuccess();
-      // emit(
-      //   state.copyWith(
-      //     priorityColor: Colors.transparent,
-      //     selectIcon: AppIcons.titleIcon,
-      //     selectIconcolor: activeColor,
-      //     startDate: DateTime(2000, 1, 1, 10),
-      //     endDate: DateTime(2000, 1, 1, 10),
-      //   ),
-      // );
-      //
-      // try {
-      //   emit(
-      //     state.copyWith(
-      //       status: LoadingStatus.loadedWithSuccess,
-      //       tasklist: updateLIst,
-      //       upcomingList:
-      //           updateLIst.where((element) => !element.isChecked).toList(),
-      //     ),
-      //   );
-      // } catch (e) {
-      //   emit(state.copyWith(
-      //     status: LoadingStatus.loadedWithFailure,
-      //   ));
-      //   event.onFailure('$e');
-      // }
+      final isGood = await response.createTask(task: TaskModel(
+        id: '',
+        title: event.title,
+        icon: event.icon,
+        priority: event.priority.toString(),
+        startDate: Timestamp.fromDate(event.startDate),
+        dueDate: Timestamp.fromDate(event.dueDate),
+        isChecked: event.isChecked,));
+
+      if(isGood) {
+        add(LoadingTask());
+      }
     });
     on<Searching>((event, emit) {
       if (event.query.isEmpty) {

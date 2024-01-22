@@ -1,3 +1,5 @@
+import 'dart:js_util';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -34,6 +36,20 @@ class TaskModel {
       isChecked: json['is_finished'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'title' : title,
+      'icon' : icon,
+      'note' : note,
+      'priority' : priority,
+      'created_at': startDate,
+      "due_date" : dueDate,
+      'is_finished' : isChecked
+    };
+  }
+
+
 
   @override
   String toString() {
